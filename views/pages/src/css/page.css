@@ -1,0 +1,65 @@
+body {
+    margin: 0px;
+}
+
+#map {
+    height: 100vh;
+    z-index: 0
+}
+
+#mapInfo {
+    z-index: 1;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    background: white;
+    box-shadow: 0px -7px 9px 0px rgba(0, 0, 0, 0.22);
+    display: flex;
+    justify-content: center;
+}
+
+
+#mapInfo-pesquisar {
+    padding: 0 10px;
+    margin-top: 7px;
+    width: 90%;
+    height: 54px;
+    border-radius: 7px;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#mapInfo-pesquisar-burguer{
+    background-image: url("../img/burguer.png");
+    background-size: 25px;
+    width: 25px;
+    height: 25px;
+}
+
+#mapInfo-pesquisar-input {
+    width: 65%;
+    height: 50px;
+    border: 0;
+}
+
+#mapInfo-pesquisar-input:focus{
+    outline: 0;
+}
+
+#mapInfo-pesquisar-botao{
+    background-image: url("../img/search.png");
+    background-size: 25px;
+    width: 25px;
+    height: 25px;
+}
+
+
+@media (min-width: 700px) {
+    #mapInfo {
+        height: 100%;
+        width: 360px;
+        box-shadow: 7px 0px 9px 0px rgba(0, 0, 0, 0.22);
+    }
+}
