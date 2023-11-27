@@ -1,9 +1,7 @@
-
-# test
+# pj-2
 
 a [Sails v1](https://sailsjs.com) application
 
-Just to be clear, the LeoTConv is an alt account of mine
 
 ### Links
 
@@ -16,12 +14,10 @@ Just to be clear, the LeoTConv is an alt account of mine
 
 ### Version info
 
-This app was originally generated on Fri Nov 03 2023 13:21:32 GMT-0300 (Brasilia Standard Time) using Sails v1.5.8.
+This app was originally generated on Mon Nov 27 2023 10:55:34 GMT-0300 (Brasilia Standard Time) using Sails v1.5.8.
 
 <!-- Internally, Sails used [`sails-generate@2.0.8`](https://github.com/balderdashy/sails-generate/tree/v2.0.8/lib/core-generators/new). -->
 
-
-This project's boilerplate is based on an expanded seed app provided by the [Sails core team](https://sailsjs.com/about) to make it easier for you to build on top of ready-made features like authentication, enrollment, email verification, and billing.  For more information, [drop us a line](https://sailsjs.com/support).
 
 
 <!--

@@ -1,0 +1,10 @@
+/* assets/styles/map.css */
+
+html, body, #map {
+  height: 100%;
+  margin: 0;
+}
+
+
+/* .leaflet-marker-icon {
+} */
