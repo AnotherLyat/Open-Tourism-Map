@@ -2,11 +2,12 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   var mymap = L.map('map', {
-    doubleClickZoom: false,
-  }).setView([0, 0], 2);
+    doubleClickZoom: false, // Disable zooming on double-click
+  }).setView([0, 0], 3);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
+  // Add double click event listener to the map
   mymap.on('dblclick', function (event) {
     // Get the clicked coordinates
     var lat = event.latlng.lat;
@@ -15,12 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create a marker and add it to the map
     var marker = L.marker([lat, lng]).addTo(mymap);
 
-    var popupContent = `
-      <div>
-        <p>Marker Information:</p>
-        <input type="text" id="markerTextbox" placeholder="Enter information">
-        <button onclick="saveMarkerInfo()">Save</button>
-        <div style="text-align: right; margin-top: 10px;">
+    // Create a custom popup with HTML content
+    marker.bindPopup(`
+      <div style="max-width: 200px;">
+        <button style="float: right;" onclick="saveMarkerInfo()">Save</button>
+        <div>
+          <p>Marker Information:</p>
+          <input type="text" id="markerTextbox" placeholder="Enter information">
+        </div>
+        <div style="text-align: left; margin-top: 10px;">
           <label for="switchButton">Switch:</label>
           <label class="switch">
             <input type="checkbox" id="switchButton">
@@ -28,16 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
           </label>
         </div>
       </div>
-    `;
-
-    marker.bindPopup(popupContent).openPopup();
+    `).openPopup();
   });
-
-  window.saveMarkerInfo = function () {
-    // Access the textbox value and do something with it
-    var markerTextboxValue = document.getElementById('markerTextbox').value;
-    var switchButtonValue = document.getElementById('switchButton').value;
-    alert('Marker Information: ' + markerTextboxValue + '\n marker swtich: ' + switchButtonValue);
-
-  };
 });
+
+window.saveMarkerInfo = function () {
+  var markerTextboxValue = document.getElementById('markerTextbox').value;
+  var switchState = document.getElementById('switchButton').checked;
+
+  alert('Marker Information: ' + markerTextboxValue + '\nSwitch State: ' + switchState);
+
+};
