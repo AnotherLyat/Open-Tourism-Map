@@ -1,22 +1,29 @@
 // assets/js/map.js
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
+
+  //don't ask me why this next line works
+  // eslint-disable-next-line no-undef
   var mymap = L.map('map', {
     doubleClickZoom: false, // Disable zooming on double-click
   }).setView([0, 0], 3);
 
+  //don't ask me why this next line works
+  // eslint-disable-next-line no-undef
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
   // Variable to store the current marker
   var currentMarker;
 
   // Add double click event listener to the map
-  mymap.on('dblclick', function (event) {
+  mymap.on('dblclick', (event) => {
     // Get the clicked coordinates
     var lat = event.latlng.lat;
     var lng = event.latlng.lng;
 
     // Create a marker and add it to the map
+    //don't ask me why this next line works
+    // eslint-disable-next-line no-undef
     currentMarker = L.marker([lat, lng]).addTo(mymap);
 
     // Create a custom popup with HTML content
