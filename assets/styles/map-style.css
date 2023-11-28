@@ -5,6 +5,10 @@ html, body, #map {
   margin: 0;
 }
 
+#stateButton {
+  background-color: #3498db;
+  transition: background-color 0.3s;
+}
 
 /* .leaflet-marker-icon {
 } */
