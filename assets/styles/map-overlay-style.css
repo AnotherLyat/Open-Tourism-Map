@@ -10,6 +10,7 @@
 
 .overlay-drag-mobile,
 .overlay-drag-desktop {
+    position: absolute;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -66,7 +67,7 @@
     }
 
     .overlay-drag-desktop {
-        position: absolute;
+
         right: -22px;
         bottom: 50%;
     }
@@ -135,4 +136,86 @@
 .overlay-drag-desktop .fa-arrow-Left {
     animation: arrowLeft .2s linear;
     animation-fill-mode: forwards;
+}
+
+/* Estilização do conteúdo do overlay */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@200&display=swap');
+
+
+
+.overlay-content {
+    margin-top: 20px;
+    width: 410px;
+    height: 220px;
+    /* background-color: whitesmoke; */
+    font-family: 'Roboto Condensed', sans-serif;
+    display: flex;
+    overflow: scroll;
+    padding: 0 15px;
+}
+
+.integrantes {
+    list-style: none;
+    text-decoration: none;
+    /* background: red; */
+    height: 220px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    padding: 5px
+}
+
+.integrante {
+    background: white;
+    width: 178px;
+    height: 54px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    padding: 8px;
+    position: relative;
+}
+
+.integrante p {
+    align-items: center;
+    height: 50%;
+    display: flex;
+    width: 120px;
+    margin: 0 0 0 56px;
+    padding: 0;
+    font-size: 14px;
+}
+
+.integrante .foto {
+    color: rgb(67, 183, 230);
+    font-size: 48px;
+    height: 70px;
+    width: 70px;
+    border-radius: 7px 0 0 7px;
+    position: absolute;
+    border: 0px;
+    margin: -8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 430px) {
+    .integrante {
+        width: 44%
+    }
+
+    .integrante p {
+        font-size: 6px;
+    }
+}
+
+@media(min-width: 650px){
+    .integrantes{
+        display: none;
+    }
 }
