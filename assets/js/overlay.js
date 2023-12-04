@@ -66,14 +66,14 @@ overlayButtonDesktop.addEventListener('click', function(){
         var intervalo = setInterval(() => {
                 if (direction == 'right'){
                     trocaSeta();
-                    startPoint += 2;
+                    startPoint += 4;
                     overlay.style.marginLeft = startPoint + 'px';
                     if (startPoint == 0){
                         clearInterval(intervalo);
                         isTransitioning = false;
                     }
                 }else{
-                    startPoint -= 2;
+                    startPoint -= 4;
                     console.log("here")
                     overlay.style.marginLeft = startPoint + 'px';
                     if (startPoint == -400){
