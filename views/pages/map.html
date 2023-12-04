@@ -5,14 +5,24 @@
   <title>Map Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/styles/map-style.css" />
+  <link rel="stylesheet" href="/styles/map-overlay-style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
 <body>
+  <section class="map-overlay">
+    <a class="overlay-drag-mobile" href="#">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+    <div class="overlay-content">
+
+    </div>
+  </section>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script id="map" src="/js/map.js"></script>
+  <!-- <script id="overlay" src="/js/overlay.js"></script> -->
 </body>
 
 </html>
