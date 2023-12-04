@@ -1,11 +1,20 @@
 /* assets/styles/map.css */
 
+/* Estilização geral do documento */
+
 html,
 body,
 #map {
   height: 100%;
   margin: 0;
 }
+
+#map {
+  z-index: 0;
+}
+
+
+/* Estilização do popup */
 
 #stateButton {
   background-color: #f0f0f0;
@@ -22,13 +31,11 @@ body,
 }
 
 .leaflet-popup-tip {
-  /* border: 6px solid rgb(67, 183, 230); */
   background: rgb(67, 183, 230) !important;
-  /* transform: rotate(45deg) !important; */
 }
 
 .leaflet-popup-content {
-  /* background: red; */
+
   height: 280px;
   display: flex;
   justify-content: center;
@@ -71,7 +78,6 @@ body,
 }
 
 .leaflet-popup-content div:nth-child(1)>div:nth-child(1) {
-  /* height: 180px !important; */
   background: red !important;
   display: flex;
   flex-direction: column;
@@ -111,9 +117,6 @@ body,
   text-align: center;
   margin-bottom: 15px !important;
   margin-top: -80px !important;
-
-
-  /* width: 155px; */
 }
 
 #starRating *>* {
@@ -121,7 +124,6 @@ body,
 }
 
 #markerTextbox {
-  /* position: absolute; */
   bottom: 15px;
   width: 175px;
   margin-top: -15px;
@@ -129,9 +131,3 @@ body,
   text-align: center;
 }
 
-/* .leaflet-popup-content div:nth-child(1) button:nth-child(2) {
-  color: green
-} */
-
-/* .leaflet-marker-icon {
-} */

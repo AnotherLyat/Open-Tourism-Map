@@ -1,0 +1,85 @@
+/* Estilização do overlay (Barra de pesquisa, etc...)*/
+
+.map-overlay {
+    z-index: 1;
+    background: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.overlay-drag-mobile {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: rgb(67, 183, 230);
+    color: white;
+    margin-top: -22px;
+    text-decoration: none;
+}
+
+@media (max-width: 650px) {
+    body {
+        overflow: hidden;
+    }
+
+    .map-overlay {
+        border-top: 5px solid rgb(67, 183, 230);
+        width: 100%;
+        height: 240px;
+        margin-bottom: -240px;
+        bottom: 0;
+    }
+}
+
+@media(min-width: 650px) {
+    .map-overlay {
+        border-right: 5px solid rgb(67, 183, 230);
+        height: 100%;
+        width: 400px;
+        left: 0;
+        -webkit-box-shadow: 5px 0px 33px 0px rgba(0, 0, 0, 0.27);
+        -moz-box-shadow: 5px 0px 33px 0px rgba(0, 0, 0, 0.27);
+        box-shadow: 5px 0px 33px 0px rgba(0, 0, 0, 0.27);
+    }
+
+    .overlay-drag-mobile {
+        display: none;
+    }
+}
+
+@keyframes arrowUp {
+    0% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(-7px);
+    }
+}
+
+.fa-arrow-up {
+    animation: arrowUp .2s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes arrowDown {
+    0% {
+        transform: translateY(-7px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+
+}
+
+.fa-arrow-down {
+    animation: arrowDown .2s linear;
+    animation-fill-mode: forwards;
+}
