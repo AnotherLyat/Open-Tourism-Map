@@ -53,6 +53,7 @@
 @media(min-width: 651px) {
     .map-overlay {
         border-right: 5px solid rgb(67, 183, 230);
+
         height: 100%;
         width: 400px;
         margin-left: -400px;
@@ -152,8 +153,10 @@
     /* background-color: whitesmoke; */
     font-family: 'Roboto Condensed', sans-serif;
     display: flex;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding: 0 15px;
+    align-content: flex-start;
 }
 
 .integrantes {
@@ -216,16 +219,10 @@
     }
 }
 
-@media (max-width: 650px) {
-    .overlay-content {
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-}
-
 @media(min-width: 651px) {
     .overlay-content {
-        height: fit-content;
+        height: -webkit-fill-available;
+        overflow-y: scroll;
     }
 
     .integrante {
@@ -272,4 +269,10 @@
 
 .links i {
     color: white;
+}
+
+/*thumb*/
+
+.overlay-content::-webkit-scrollbar {
+    width: 5px
 }
