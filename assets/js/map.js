@@ -56,30 +56,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.toggleWheelchair = function () {
     var wheelchairstate = document.getElementById('wheelchairstate');
-
     wheelchairState = !wheelchairState;
-    wheelchairstate.style.backgroundColor = wheelchairState ? '#28a745' : '#f0f0f0';
+    wheelchairstate.style.backgroundColor = wheelchairState ? 'rgb(67, 183, 230)' : 'white';
+
+    var icon = wheelchairstate.children[0].children[0];
+    icon.style.color = wheelchairState ? 'white' : 'rgb(67, 183, 230)';
+
   };
 
   window.toggleEye = function () {
     var sightButton = document.getElementById('sightState');
-
     sightState = !sightState;
-    sightButton.style.backgroundColor = sightState ? '#28a745' : '#f0f0f0';
+    sightButton.style.backgroundColor = sightState ? 'rgb(67, 183, 230)' : 'white';
+
+    var icon = sightButton.children[0].children[0];
+    icon.style.color = sightState ? 'white' : 'rgb(67, 183, 230)';
   };
 
   window.toggleEar = function () {
     var hearingButton = document.getElementById('hearingState');
 
     hearingState = !hearingState;
-    hearingButton.style.backgroundColor = hearingState ? '#28a745' : '#f0f0f0';
+    hearingButton.style.backgroundColor = hearingState ? 'rgb(67, 183, 230)' : 'white';
+    var icon = hearingButton.children[0].children[0];
+    icon.style.color = hearingState ? 'white' : 'rgb(67, 183, 230)';
   };
 
   window.speechButton = function () {
     var speechButton = document.getElementById('speechState');
 
     speechState = !speechState;
-    speechButton.style.backgroundColor = speechState ? '#28a745' : '#f0f0f0';
+    speechButton.style.backgroundColor = speechState ? 'rgb(67, 183, 230)' : 'white';
+    var icon = speechButton.children[0].children[0];
+    icon.style.color = speechState ? 'white' : 'rgb(67, 183, 230)';
   };
 
   window.saveMarkerInfo = function () {
