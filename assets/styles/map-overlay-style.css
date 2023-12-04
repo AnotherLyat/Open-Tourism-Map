@@ -1,5 +1,4 @@
 /* Estilização do overlay (Barra de pesquisa, etc...)*/
-
 .map-overlay {
     z-index: 1;
     background: white;
@@ -10,7 +9,8 @@
 
 }
 
-.overlay-drag-mobile {
+.overlay-drag-mobile,
+.overlay-drag-desktop {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -19,10 +19,11 @@
     border-radius: 100%;
     background: rgb(67, 183, 230);
     color: white;
-    margin-top: -22px;
     text-decoration: none;
 }
 
+
+/* Estilização até width: 650px (mobile)*/
 @media (max-width: 650px) {
     body {
         overflow: hidden;
@@ -35,13 +36,23 @@
         margin-bottom: -240px;
         bottom: 0;
     }
+
+    .overlay-drag-mobile {
+        margin-top: -22px
+    }
+
+    .overlay-drag-desktop {
+        display: none
+    }
 }
 
+/* Estilização a partir de width: 650px (desktop) */
 @media(min-width: 650px) {
     .map-overlay {
         border-right: 5px solid rgb(67, 183, 230);
         height: 100%;
         width: 400px;
+        margin-left: -400px;
         left: 0;
         -webkit-box-shadow: 5px 0px 33px 0px rgba(0, 0, 0, 0.27);
         -moz-box-shadow: 5px 0px 33px 0px rgba(0, 0, 0, 0.27);
@@ -51,7 +62,15 @@
     .overlay-drag-mobile {
         display: none;
     }
+
+    .overlay-drag-desktop {
+        position: absolute;
+        right: -22px;
+        bottom: 50%;
+    }
 }
+
+/* Animações da seta (mobile) */
 
 @keyframes arrowUp {
     0% {
@@ -63,7 +82,7 @@
     }
 }
 
-.fa-arrow-up {
+.overlay-drag-mobile .fa-arrow-up {
     animation: arrowUp .2s linear;
     animation-fill-mode: forwards;
 }
@@ -79,7 +98,37 @@
 
 }
 
-.fa-arrow-down {
+.overlay-drag-mobile .fa-arrow-down {
     animation: arrowDown .2s linear;
+    animation-fill-mode: forwards;
+}
+
+/* Animações da seta (desktop) */
+
+@keyframes arrowRight {
+    0%{
+        transform:  translate(0px);
+    }
+    100%{
+        transform:  translate(7px);
+    }
+}
+
+.overlay-drag-desktop .fa-arrow-right{
+    animation: arrowRight .2s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes arrowLeft {
+    0%{
+        transform:  translate(7px);
+    }
+    100%{
+        transform:  translate(0px);
+    }
+}
+
+.overlay-drag-desktop .fa-arrow-Left{
+    animation: arrowLeft .2s linear;
     animation-fill-mode: forwards;
 }

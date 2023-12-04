@@ -13,6 +13,9 @@ body,
   z-index: 0;
 }
 
+.leaflet-left{
+  opacity: 0 !important;
+}
 
 /* Estilização do popup */
 
