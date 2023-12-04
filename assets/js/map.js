@@ -4,16 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     doubleClickZoom: false,
   }).setView([0, 0], 3);
 
+  //making the map itself
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
-  var markers = {}; // Object to store marker-specific data
+  var markers = {};
 
+  //event for the marker creation
   mymap.on('dblclick', (event) => {
     var lat = event.latlng.lat;
     var lng = event.latlng.lng;
 
+    //collect the coordinates of the point where the double click happened
     var currentMarker = L.marker([lat, lng]).addTo(mymap);
 
+    //base stats of the maker
     markers[currentMarker._leaflet_id] = {
       wheelchairState: false,
       sightState: false,
@@ -22,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       starRating: 0,
     };
 
+    //pop-up for the interaction with the marker
     currentMarker.bindPopup(`
       <div style="max-width: 200px;">
 
@@ -55,11 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `).openPopup();
   });
 
+  //will change the status of the pop-up as it's open to agree with the data saved
   mymap.on('popupopen', (event) => {
     var popup = event.popup;
     var markerId = popup._source._leaflet_id;
 
-    // Access the marker data from your markers object using the markerId
     var markerData = markers[markerId];
     console.log(markerData);
 
@@ -67,8 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButtonColor('sightState', markerData.sightState);
     toggleButtonColor('hearingState', markerData.hearingState);
     toggleButtonColor('speechState', markerData.speechState);
+
     toggleStarRating(markerId, markerData.starRating);
   });
+
+  //many functions for change status
 
   function toggleButtonColor(buttonId, state) {
     var button = document.getElementById(buttonId);
@@ -119,18 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  window.saveMarkerInfo = function (markerId) {
-    var markerTextboxValue = document.getElementById('markerTextbox').value;
-    alert('Marker Information: ' + markerTextboxValue + '\nStates in order: ' + markers[markerId].wheelchairState + ' ' + markers[markerId].sightState + ' ' + markers[markerId].hearingState + ' ' + markers[markerId].speechState + '\nStar Rating: ' + markers[markerId].starRating);
-  };
-
-  window.deleteMarker = function (markerId) {
-    if (markers[markerId]) {
-      mymap.removeLayer(mymap._layers[markerId]);
-      delete markers[markerId];
-    }
-  };
-
+  //ratings functions
   function getStarRatingHTML(markerId, rating) {
     let starsHTML = '';
     for (let i = 1; i <= 5; i++) {
@@ -138,10 +135,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return starsHTML;
   }
-
   window.setStarRating = function (markerId, rating, event) {
     markers[markerId].starRating = rating;
     document.getElementById('starRating').innerHTML = getStarRatingHTML(markerId, rating);
     event.stopPropagation();
   };
+
+  //save the data of it marker
+  window.saveMarkerInfo = function (markerId) {
+    var markerTextboxValue = document.getElementById('markerTextbox').value;
+    alert('Marker Information: ' + markerTextboxValue + '\nStates in order: ' + markers[markerId].wheelchairState + ' ' + markers[markerId].sightState + ' ' + markers[markerId].hearingState + ' ' + markers[markerId].speechState + '\nStar Rating: ' + markers[markerId].starRating);
+  };
+
+  //delete the marker and it's status
+  window.deleteMarker = function (markerId) {
+    if (markers[markerId]) {
+      mymap.removeLayer(mymap._layers[markerId]);
+      delete markers[markerId];
+    }
+  };
+
 });
