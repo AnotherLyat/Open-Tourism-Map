@@ -55,6 +55,33 @@ document.addEventListener('DOMContentLoaded', () => {
     `).openPopup();
   });
 
+  mymap.on('popupopen', (event) => {
+    var popup = event.popup;
+    var markerId = popup._source._leaflet_id;
+
+    // Access the marker data from your markers object using the markerId
+    var markerData = markers[markerId];
+    console.log(markerData);
+
+    toggleButtonColor('wheelchairstate', markerData.wheelchairState);
+    toggleButtonColor('sightState', markerData.sightState);
+    toggleButtonColor('hearingState', markerData.hearingState);
+    toggleButtonColor('speechState', markerData.speechState);
+    toggleStarRating(markerId, markerData.starRating);
+  });
+
+  function toggleButtonColor(buttonId, state) {
+    var button = document.getElementById(buttonId);
+    button.style.backgroundColor = state ? 'rgb(67, 183, 230)' : 'white';
+    var icon = button.children[0].children[0];
+    icon.style.color = state ? 'white' : 'rgb(67, 183, 230)';
+  }
+
+  function toggleStarRating(markerId, rating) {
+    var starRatingContainer = document.getElementById('starRating');
+    starRatingContainer.innerHTML = getStarRatingHTML(markerId, rating);
+  }
+
   window.toggleWheelchair = function (markerId) {
     var wheelchairstate = document.getElementById('wheelchairstate');
     markers[markerId].wheelchairState = !markers[markerId].wheelchairState;
