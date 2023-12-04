@@ -5,8 +5,7 @@
     position: absolute;
     display: flex;
     justify-content: center;
-
-
+    background: rgb(67, 183, 230);
 }
 
 .overlay-drag-mobile,
@@ -20,6 +19,9 @@
     background: rgb(67, 183, 230);
     color: white;
     text-decoration: none;
+    -webkit-box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.44);
+    box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.44);
 }
 
 
@@ -106,29 +108,31 @@
 /* Animações da seta (desktop) */
 
 @keyframes arrowRight {
-    0%{
-        transform:  translate(0px);
+    0% {
+        transform: translate(0px);
     }
-    100%{
-        transform:  translate(7px);
+
+    100% {
+        transform: translate(7px);
     }
 }
 
-.overlay-drag-desktop .fa-arrow-right{
+.overlay-drag-desktop .fa-arrow-right {
     animation: arrowRight .2s linear;
     animation-fill-mode: forwards;
 }
 
 @keyframes arrowLeft {
-    0%{
-        transform:  translate(7px);
+    0% {
+        transform: translate(7px);
     }
-    100%{
-        transform:  translate(0px);
+
+    100% {
+        transform: translate(0px);
     }
 }
 
-.overlay-drag-desktop .fa-arrow-Left{
+.overlay-drag-desktop .fa-arrow-Left {
     animation: arrowLeft .2s linear;
     animation-fill-mode: forwards;
 }

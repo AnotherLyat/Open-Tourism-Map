@@ -1,11 +1,13 @@
 // Reposiciona o 'zoom' para a direita, para que o overlay não fique na frente.
-document.querySelector("body").onload = function(){
-   document.querySelector(".leaflet-left").classList.add('leaflet-right')
-   document.querySelector(".leaflet-left").classList.remove('leaflet-left')
+document.querySelector("body").onload = function () {
+    document.querySelector(".leaflet-left").classList.add('leaflet-right')
+    document.querySelector(".leaflet-left").classList.remove('leaflet-left')
 }
 
+// Elemento do overlay
 var overlay = document.querySelector(".map-overlay");
 
+// Variaveis para controlar a animação.
 var arrowPosition = 0;
 var isTransitioning = false;
 
@@ -21,6 +23,7 @@ overlayButtonMobile.addEventListener("click", function (event) {
 
         var intervalo = setInterval(() => {
             if (direction == 'up') {
+                // Anima ↑
                 trocaSeta()
                 startPoint += 2;
                 overlay.style.marginBottom = startPoint + 'px';
@@ -29,6 +32,7 @@ overlayButtonMobile.addEventListener("click", function (event) {
                     clearInterval(intervalo);
                 }
             } else {
+                // Anima ↓
                 startPoint -= 2;
                 overlay.style.marginBottom = startPoint + 'px';
                 if (startPoint == -240) {
@@ -39,7 +43,7 @@ overlayButtonMobile.addEventListener("click", function (event) {
             }
         }, 1);
 
-        // Troca o sentido da seta
+        // Troca o sentido da seta (↑, ↓)
         function trocaSeta() {
             if (direction == 'up') {
                 arrowMobile.classList.remove("fa-arrow-up");
@@ -56,7 +60,7 @@ overlayButtonMobile.addEventListener("click", function (event) {
 var overlayButtonDesktop = document.querySelector(".overlay-drag-desktop");
 var arrowDesktop = overlayButtonDesktop.children[0];
 // Evento 'click' (desktop)
-overlayButtonDesktop.addEventListener('click', function(){
+overlayButtonDesktop.addEventListener('click', function () {
     if (isTransitioning == false) {
         isTransitioning = true;
         var direction = arrowDesktop.classList.contains("fa-arrow-right") ? 'right' : 'left';
@@ -64,26 +68,28 @@ overlayButtonDesktop.addEventListener('click', function(){
         console.log(direction);
 
         var intervalo = setInterval(() => {
-                if (direction == 'right'){
-                    trocaSeta();
-                    startPoint += 4;
-                    overlay.style.marginLeft = startPoint + 'px';
-                    if (startPoint == 0){
-                        clearInterval(intervalo);
-                        isTransitioning = false;
-                    }
-                }else{
-                    startPoint -= 4;
-                    console.log("here")
-                    overlay.style.marginLeft = startPoint + 'px';
-                    if (startPoint == -400){
-                        clearInterval(intervalo);
-                        isTransitioning = false;
-                        trocaSeta();
-                    }
+            if (direction == 'right') {
+                // Anima →
+                trocaSeta();
+                startPoint += 4;
+                overlay.style.marginLeft = startPoint + 'px';
+                if (startPoint == 0) {
+                    clearInterval(intervalo);
+                    isTransitioning = false;
                 }
+            } else {
+                // Anima ←
+                startPoint -= 4;
+                console.log("here")
+                overlay.style.marginLeft = startPoint + 'px';
+                if (startPoint == -400) {
+                    clearInterval(intervalo);
+                    isTransitioning = false;
+                    trocaSeta();
+                }
+            }
         }, 1);
-
+        // Troca o sentido da seta (→, ←)
         function trocaSeta() {
             if (direction == 'left') {
                 arrowDesktop.classList.remove("fa-arrow-left");
