@@ -101,3 +101,17 @@ overlayButtonDesktop.addEventListener('click', function () {
         }
     }
 })
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth <= 650){
+        if (arrowDesktop.classList.contains("fa-arrow-left")){
+            overlay.style.marginLeft = '0px'
+        }else if (overlay.style.marginLeft == '-400px'){
+            overlay.style.marginLeft = '0px'
+        }
+    }else{
+        if (arrowDesktop.classList.contains("fa-arrow-right")){
+            overlay.style.marginLeft = '-400px'
+        }
+    }
+})

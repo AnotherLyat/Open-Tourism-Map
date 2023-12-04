@@ -50,7 +50,7 @@
 }
 
 /* Estilização a partir de width: 650px (desktop) */
-@media(min-width: 650px) {
+@media(min-width: 651px) {
     .map-overlay {
         border-right: 5px solid rgb(67, 183, 230);
         height: 100%;
@@ -145,6 +145,7 @@
 
 
 .overlay-content {
+    flex-wrap: wrap;
     margin-top: 20px;
     width: 410px;
     height: 220px;
@@ -215,8 +216,25 @@
     }
 }
 
-@media(min-width: 650px){
-    .integrantes{
-        display: none;
+@media(min-width: 651px){
+    .overlay-content{
+        height: fit-content;
     }
+
+    .integrante{
+        width: 100%;
+    }
+
+    .integrantes{
+        height: fit-content;
+    }
+}
+
+
+.overlay-title{
+    height: 30px;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    color: white;
 }
