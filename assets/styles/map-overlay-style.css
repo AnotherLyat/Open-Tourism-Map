@@ -261,6 +261,10 @@
         width: 100%;
     }
 
+    .integrante p{
+        width: 100%;
+    }
+
     .integrantes {
         height: fit-content;
         margin-bottom: 15px
