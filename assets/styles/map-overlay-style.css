@@ -1,4 +1,16 @@
-/* Estilização do overlay (Barra de pesquisa, etc...)*/
+/* Indice 
+ *  #1 - Janela overlay
+ *  #2 - Conteúdo da janela overlay
+*/
+
+
+/* * * * * * * * * *
+ *  #1
+ *  Estilização da janela overlay
+ *  
+ *
+ */
+
 .map-overlay {
     z-index: 1;
     background: white;
@@ -139,11 +151,23 @@
     animation-fill-mode: forwards;
 }
 
-/* Estilização do conteúdo do overlay */
+
+
+
+
+
+
+
+
+
+/* * * * * * * * * *
+ *  #2
+ *  A partir daqui a estilização é do conteúdo 
+ *  da janela overlay.
+ *
+ */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@200&display=swap');
-
-
 
 .overlay-content {
     flex-wrap: wrap;
@@ -284,6 +308,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgba(53, 150, 189, .5);;
+    background: rgba(53, 150, 189, .5);
+    ;
     border-radius: 5px;
 }
