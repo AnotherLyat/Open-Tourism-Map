@@ -240,7 +240,17 @@
 }
 
 
-@media (max-width: 430px) {
+@media (max-width: 340px){
+    .integrante{
+        width: 100%;
+    }
+
+    .integrante p{
+        width: 70%;
+    }
+}
+
+@media (min-width: 341px) and (max-width: 430px) {
     .integrante {
         width: 44%
     }
