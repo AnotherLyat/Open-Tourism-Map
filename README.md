@@ -8,7 +8,7 @@ Gustavo Enzo Gonçalves
 Matheus Neves Rodrigues
 Matheus Vidinha Romano
 
-###Objective
+### Objective
 The objective of this project was to create the proof of concept of a opensourced and crowdsourced Touristic map, where the users could create points of interest at will and share their thoughts about the marked location while also giving possibility to indicate if said location have accebility for different types of disabilities.
 A project that kept in mind the desire to help people share what they love about a place, to help other people find what they seek and to guide those that just want to find new places.
 
