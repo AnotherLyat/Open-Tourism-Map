@@ -1,4 +1,20 @@
-# pj-2
+# Open Tourism Map
+made by:
+Leonardo Yuji Alves Tanaka
+Fábio Balestrin Veiga
+
+Assisted by:
+Gustavo Enzo Gonçalves
+Matheus Neves Rodrigues
+Matheus Vidinha Romano
+
+###Objective
+The objective of this project was to create the proof of concept of a opensourced and crowdsourced Touristic map, where the users could create points of interest at will and share their thoughts about the marked location while also giving possibility to indicate if said location have accebility for different types of disabilities.
+A project that kept in mind the desire to help people share what they love about a place, to help other people find what they seek and to guide those that just want to find new places.
+
+by people, for people.
+
+note: i accidentally used quite a bit of my work account, both anotherLyat and LeoTConv are the same person
 
 a [Sails v1](https://sailsjs.com) application
 
