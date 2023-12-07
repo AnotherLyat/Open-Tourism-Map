@@ -1,158 +1,157 @@
-document.addEventListener('DOMContentLoaded', () => {
-  var L = window.L;
-  var mymap = L.map('map', {
-    doubleClickZoom: false,
-  }).setView([0, 0], 3);
+class Marker {
+  constructor(id, lat, lng) {
+    this.id = id;
+    this.lat = lat;
+    this.lng = lng;
+    this.wheelchairState = false;
+    this.sightState = false;
+    this.hearingState = false;
+    this.speechState = false;
+    this.starRating = 0;
+  }
+}
 
-  //making the map itself
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
-
-  var markers = {};
-
-  //event for the marker creation
-  mymap.on('dblclick', (event) => {
-    var lat = event.latlng.lat;
-    var lng = event.latlng.lng;
-
-    //collect the coordinates of the point where the double click happened
-    var currentMarker = L.marker([lat, lng]).addTo(mymap);
-
-    //base stats of the maker
-    markers[currentMarker._leaflet_id] = {
-      wheelchairState: false,
-      sightState: false,
-      hearingState: false,
-      speechState: false,
-      starRating: 0,
-    };
-
-    //pop-up for the interaction with the marker
-    currentMarker.bindPopup(`
+class PopupManager {
+  static createPopup(marker) {
+    var L = window.L;
+    const popupContent = `
       <div style="max-width: 200px;">
-
-        <button style="float: right;" onclick="saveMarkerInfo(${currentMarker._leaflet_id})">Save</button>
-        <button id="deleteButton" onclick="deleteMarker(${currentMarker._leaflet_id})">Delete</button>
-        <div><p>
-        <div id="starRating" style="text-align: center; margin-bottom: 10px;">
-          ${getStarRatingHTML(currentMarker._leaflet_id, markers[currentMarker._leaflet_id].starRating)}
-        </div>
-          Marker Information: </p>
+        <button style="float: right;" onclick="saveMarkerInfo(${marker.id})">Save</button>
+        <button id="deleteButton" onclick="deleteMarker(${marker.id})">Delete</button>
+        <div>
+          <p>
+            <div id="starRating" style="text-align: center; margin-bottom: 10px;">
+              ${getStarRatingHTML(marker.id, marker.starRating)}
+            </div>
+            Marker Information:
+          </p>
           <input type="text" id="markerTextbox" placeholder="Enter information">
         </div>
         <div style="text-align: left; margin-top: 10px;">
-          <button id="wheelchairstate" onclick="toggleWheelchair(${currentMarker._leaflet_id})">
+          <button id="wheelchairstate" onclick="toggleWheelchair(${marker.id})">
             <span class="play-icon"><i class="fa fa-wheelchair"></i></span>
           </button>
-
-          <button id="sightState" onclick="toggleEye(${currentMarker._leaflet_id})">
+          <button id="sightState" onclick="toggleEye(${marker.id})">
             <span class="play-icon"><i class="fa fa-blind"></i></span>
           </button>
-
-          <button id="hearingState" onclick="toggleEar(${currentMarker._leaflet_id})">
+          <button id="hearingState" onclick="toggleEar(${marker.id})">
             <span class="play-icon"><i class="fa fa-deaf"></i></span>
           </button>
-
-          <button id="speechState" onclick="speechButton(${currentMarker._leaflet_id})">
+          <button id="speechState" onclick="speechButton(${marker.id})">
             <span class="play-icon"><i class="fa fa-commenting"></i></span>
           </button>
         </div>
       </div>
-    `).openPopup();
-  });
+    `;
+    return L.popup().setLatLng([marker.lat, marker.lng]).setContent(popupContent);
+  }
+}
 
-  //will change the status of the pop-up as it's open to agree with the data saved
-  mymap.on('popupopen', (event) => {
-    var popup = event.popup;
-    var markerId = popup._source._leaflet_id;
+class Map {
+  constructor() {
+    this.L = window.L;
+    this.mymap = this.L.map('map', {
+      doubleClickZoom: false,
+    }).setView([0, 0], 3);
 
-    var markerData = markers[markerId];
-    console.log(markerData);
+    this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.mymap);
+    this.markers = {};
 
-    toggleButtonColor('wheelchairstate', markerData.wheelchairState);
-    toggleButtonColor('sightState', markerData.sightState);
-    toggleButtonColor('hearingState', markerData.hearingState);
-    toggleButtonColor('speechState', markerData.speechState);
+    this.mymap.on('dblclick', this.handleMapDoubleClick.bind(this));
+    this.mymap.on('popupopen', this.handlePopupOpen.bind(this));
+  }
 
-    toggleStarRating(markerId, markerData.starRating);
-  });
+  handleMapDoubleClick(event) {
+    const lat = event.latlng.lat;
+    const lng = event.latlng.lng;
+    const markerId = new Date().getTime(); // Use timestamp as a unique ID
+    const newMarker = new Marker(markerId, lat, lng);
+    const currentMarker = this.L.marker([lat, lng]).addTo(this.mymap);
+    this.markers[currentMarker._leaflet_id] = newMarker;
+    const popup = PopupManager.createPopup(newMarker).openPopup();
+    currentMarker.bindPopup(popup);
+  }
 
-  //many functions for change status
+  handlePopupOpen(event) {
+    const popup = event.popup;
+    const markerId = popup._source._leaflet_id;
+    const markerData = this.markers[markerId];
+    this.toggleButtonColor('wheelchairstate', markerData.wheelchairState);
+    this.toggleButtonColor('sightState', markerData.sightState);
+    this.toggleButtonColor('hearingState', markerData.hearingState);
+    this.toggleButtonColor('speechState', markerData.speechState);
+    this.toggleStarRating(markerId, markerData.starRating);
+  }
 
-  function toggleButtonColor(buttonId, state) {
-    var button = document.getElementById(buttonId);
+  toggleButtonColor(buttonId, state) {
+    const button = document.getElementById(buttonId);
     button.style.backgroundColor = state ? 'rgb(67, 183, 230)' : 'white';
-    var icon = button.children[0].children[0];
+    const icon = button.children[0].children[0];
     icon.style.color = state ? 'white' : 'rgb(67, 183, 230)';
   }
 
-  function toggleStarRating(markerId, rating) {
-    var starRatingContainer = document.getElementById('starRating');
+  toggleStarRating(markerId, rating) {
+    const starRatingContainer = document.getElementById('starRating');
     starRatingContainer.innerHTML = getStarRatingHTML(markerId, rating);
   }
+}
 
-  window.toggleWheelchair = function (markerId) {
-    var wheelchairstate = document.getElementById('wheelchairstate');
-    markers[markerId].wheelchairState = !markers[markerId].wheelchairState;
-    wheelchairstate.style.backgroundColor = markers[markerId].wheelchairState ? 'rgb(67, 183, 230)' : 'white';
+const mapInstance = new Map();
 
-    var icon = wheelchairstate.children[0].children[0];
-    icon.style.color = markers[markerId].wheelchairState ? 'white' : 'rgb(67, 183, 230)';
-  };
-
-  window.toggleEye = function (markerId) {
-    var sightButton = document.getElementById('sightState');
-    markers[markerId].sightState = !markers[markerId].sightState;
-    sightButton.style.backgroundColor = markers[markerId].sightState ? 'rgb(67, 183, 230)' : 'white';
-
-    var icon = sightButton.children[0].children[0];
-    icon.style.color = markers[markerId].sightState ? 'white' : 'rgb(67, 183, 230)';
-  };
-
-  window.toggleEar = function (markerId) {
-    var hearingButton = document.getElementById('hearingState');
-    markers[markerId].hearingState = !markers[markerId].hearingState;
-    hearingButton.style.backgroundColor = markers[markerId].hearingState ? 'rgb(67, 183, 230)' : 'white';
-
-    var icon = hearingButton.children[0].children[0];
-    icon.style.color = markers[markerId].hearingState ? 'white' : 'rgb(67, 183, 230)';
-  };
-
-  window.speechButton = function (markerId) {
-    var speechButton = document.getElementById('speechState');
-    markers[markerId].speechState = !markers[markerId].speechState;
-    speechButton.style.backgroundColor = markers[markerId].speechState ? 'rgb(67, 183, 230)' : 'white';
-
-    var icon = speechButton.children[0].children[0];
-    icon.style.color = markers[markerId].speechState ? 'white' : 'rgb(67, 183, 230)';
-  };
-
-
-  //ratings functions
-  function getStarRatingHTML(markerId, rating) {
-    let starsHTML = '';
-    for (let i = 1; i <= 5; i++) {
-      starsHTML += `<span style="cursor: pointer;" onclick="setStarRating(${markerId}, ${i}, event)"><i class="fa ${i <= rating ? 'fa-star' : 'fa-star-o'}"></i></span>`;
-    }
-    return starsHTML;
+function getStarRatingHTML(markerId, rating) {
+  let starsHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    starsHTML += `<span style="cursor: pointer;" onclick="setStarRating(${markerId}, ${i}, event)"><i class="fa ${i <= rating ? 'fa-star' : 'fa-star-o'}"></i></span>`;
   }
-  window.setStarRating = function (markerId, rating, event) {
-    markers[markerId].starRating = rating;
-    document.getElementById('starRating').innerHTML = getStarRatingHTML(markerId, rating);
-    event.stopPropagation();
-  };
+  return starsHTML;
+}
 
-  //save the data of it marker
-  window.saveMarkerInfo = function (markerId) {
-    var markerTextboxValue = document.getElementById('markerTextbox').value;
-    alert('Marker Information: ' + markerTextboxValue + '\nStates in order: ' + markers[markerId].wheelchairState + ' ' + markers[markerId].sightState + ' ' + markers[markerId].hearingState + ' ' + markers[markerId].speechState + '\nStar Rating: ' + markers[markerId].starRating);
-  };
+window.setStarRating = function (markerId, rating, event) {
+  mapInstance.markers[markerId].starRating = rating;
+  document.getElementById('starRating').innerHTML = getStarRatingHTML(markerId, rating);
+  event.stopPropagation();
+};
 
-  //delete the marker and it's status
-  window.deleteMarker = function (markerId) {
-    if (markers[markerId]) {
-      mymap.removeLayer(mymap._layers[markerId]);
-      delete markers[markerId];
-    }
-  };
+window.toggleWheelchair = function (markerId) {
+  const wheelchairstate = document.getElementById('wheelchairstate');
+  mapInstance.markers[markerId].wheelchairState = !mapInstance.markers[markerId].wheelchairState;
+  wheelchairstate.style.backgroundColor = mapInstance.markers[markerId].wheelchairState ? 'rgb(67, 183, 230)' : 'white';
+  const icon = wheelchairstate.children[0].children[0];
+  icon.style.color = mapInstance.markers[markerId].wheelchairState ? 'white' : 'rgb(67, 183, 230)';
+};
 
-});
+window.toggleEye = function (markerId) {
+  const sightButton = document.getElementById('sightState');
+  mapInstance.markers[markerId].sightState = !mapInstance.markers[markerId].sightState;
+  sightButton.style.backgroundColor = mapInstance.markers[markerId].sightState ? 'rgb(67, 183, 230)' : 'white';
+  const icon = sightButton.children[0].children[0];
+  icon.style.color = mapInstance.markers[markerId].sightState ? 'white' : 'rgb(67, 183, 230)';
+};
+
+window.toggleEar = function (markerId) {
+  const hearingButton = document.getElementById('hearingState');
+  mapInstance.markers[markerId].hearingState = !mapInstance.markers[markerId].hearingState;
+  hearingButton.style.backgroundColor = mapInstance.markers[markerId].hearingState ? 'rgb(67, 183, 230)' : 'white';
+  const icon = hearingButton.children[0].children[0];
+  icon.style.color = mapInstance.markers[markerId].hearingState ? 'white' : 'rgb(67, 183, 230)';
+};
+
+window.speechButton = function (markerId) {
+  const speechButton = document.getElementById('speechState');
+  mapInstance.markers[markerId].speechState = !mapInstance.markers[markerId].speechState;
+  speechButton.style.backgroundColor = mapInstance.markers[markerId].speechState ? 'rgb(67, 183, 230)' : 'white';
+  const icon = speechButton.children[0].children[0];
+  icon.style.color = mapInstance.markers[markerId].speechState ? 'white' : 'rgb(67, 183, 230)';
+};
+
+window.saveMarkerInfo = function (markerId) {
+  const markerTextboxValue = document.getElementById('markerTextbox').value;
+  alert('Marker Information: ' + markerTextboxValue + '\nStates in order: ' + mapInstance.markers[markerId].wheelchairState + ' ' + mapInstance.markers[markerId].sightState + ' ' + mapInstance.markers[markerId].hearingState + ' ' + mapInstance.markers[markerId].speechState + '\nStar Rating: ' + mapInstance.markers[markerId].starRating);
+};
+
+window.deleteMarker = function (markerId) {
+  if (mapInstance.markers[markerId]) {
+    mapInstance.mymap.removeLayer(mapInstance.mymap._layers[markerId]);
+    delete mapInstance.markers[markerId];
+  }
+};
